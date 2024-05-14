@@ -24,7 +24,7 @@
 
 GitFlow를 사용하며 master, develop, release, feature, hotfix 브랜치를 사용합니다.
 
-master, develop에 직접 커밋 할 수 없습니다
+master, develop에 직접 커밋 할 수 없습니다.
 
 | 태그 이름 | 설명 |
 | --- | --- |
@@ -67,12 +67,56 @@ Resolves: #123
 | num class 내 변수 이름 : 모두 다 대문자 | enum class Type {A, B, C, D} |
 | drawable 내 리소스 이름 : 리소스타입(_위치)_용도 | img_main_like |
 
-커밋 전 수정된 코드 ctrl(cmd) + alt + L 필수
+커밋 전 수정된 코드 ctrl(cmd) + alt + L 필수 (코드 정리)
 
-klint를 사용하며 githut action을 통해 자동으로 확인합니다.
-
-린트에 맞지 않는 코드는 pr approve를 하지 않습니다.
+klint를 사용하여 일관화 된 코드를 작성합니다.
 
 ## PR 룰
 
-어쩌구저쩌구
+PR의 제목은
+ 
+```kotlin
+[Feat] 회원가입 기능 추가
+[Fix] 닉네임 특수문자 버그 수정 Resolves:#001
+```
+
+이런 스타일로 작성합니다.
+이슈에서 나온 버그에 대한 fix일 경우 PR 제목 뒤에 이슈번호를 달아줍니다.
+
+
+PR을 올리면 본인을 Assignees하고 본인을 제외한 세명의 Reviewer를 태그합니다. 
+3명중 2명의 approve를 받아야 머지를 할 수 있습니다.
+작성중인 pr에 해당하는 Labels를 달아줘야합니다.
+
+
+PR을 올리게 되면 klint를 사용하며 githut action을 통해 자동으로 확인합니다.
+lint에 맞지 않는 코드는 pr을 올리게 되면 github action을 통해 자동으로 피드백을 받을 수 있습니다.
+린트에 맞지 않는 코드는 머지를 할 수 없습니다
+
+
+## Issues 룰
+버그를 발견했으면 Issues를 작성합니다.
+
+제목
+```kotlin
+닉네임 특수문자 버그
+```
+
+내용
+
+```kotlin
+회원가입 버튼 클릭 -> 닉네임에 특수문자 입력 후 회원가입 -> 회원가입 처리 오류 발생
+(RegisterActivity)
+
+갤럭시 s24 안드로이드 14.0.1
+```
+description에 버그 재현 경로를 작성합니다
+발생한 코드의 위치를 알면 작성합니다.
+재현 기기의 모델명, Android 버전에 대해 작성합니다. 만약 ui이슈인 경우 해당 기기의 화면 해상도도 같이 작성합니다.
+ 
+이슈 작성 후 수정할 담당자가 정해지면 Assignees를 달아준 후 해당 버그에 맞는 Labels를 달아줍니다.
+
+
+## 버전 명 관리
+1.0.0 부터 (Major, Minor, Patch) 순으로 작성합니다.
+안드로이드에서는 versionCode가 존재합니다. versionCode는 매 배포시 1씩 증가해서 올립니다.
