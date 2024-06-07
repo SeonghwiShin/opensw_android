@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = MainAdapter(this)
         binding.viewpager.adapter = adapter
 
-        // 탭레이아웃과 뷰페이저 연결
         val tabTitles = arrayOf("Main", "Wish", "Other")
         TabLayoutMediator(binding.tablayout, binding.viewpager) { tab, position ->
             tab.text = tabTitles[position]
