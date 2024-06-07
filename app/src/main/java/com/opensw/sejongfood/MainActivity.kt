@@ -2,6 +2,7 @@ package com.opensw.sejongfood
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.tabs.TabLayoutMediator
 import com.opensw.sejongfood.databinding.ActivityMainBinding
 import kotlinx.coroutines.Job
 
@@ -14,6 +15,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val adapter = MainAdapter(this)
+        binding.viewpager.adapter = adapter
 
+        val tabTitles = arrayOf("Main", "Wish", "Other")
+        TabLayoutMediator(binding.tablayout, binding.viewpager) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
 }
