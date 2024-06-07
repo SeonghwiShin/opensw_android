@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val Abc = MainFragment() // lint test
-        
+
+        val A1bc = MainFragment() // lint test
 
         //ㅁㄴㅇㄹ
     }
