@@ -18,7 +18,7 @@ class WishFragment : Fragment() {
         binding = FragmentWishBinding.inflate(
             inflater,
             container,
-            false
+            false,
         )
         return binding.root
     }

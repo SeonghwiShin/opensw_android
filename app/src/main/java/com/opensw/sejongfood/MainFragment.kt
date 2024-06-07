@@ -18,7 +18,7 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(
             inflater,
             container,
-            false
+            false,
         )
         return binding.root
     }
