@@ -56,15 +56,12 @@ class AddFragment : Fragment() {
 
                     kakaoMap.setOnMapClickListener { _, latLng, _, _ ->
                         kakaoMap.labelManager?.layer?.removeAll()
-                        Toast.makeText(requireActivity(), latLng.latitude.toString(), Toast.LENGTH_SHORT).show()
-//
                         val options = LabelOptions.from(
                             LatLng.from(
                                 latLng.latitude,
                                 latLng.longitude,
-                                )
                             )
-                            .setStyles(R.drawable.icon_maker)
+                        ).setStyles(R.drawable.icon_maker)
 
                         val layer = kakaoMap.labelManager?.layer
                         layer?.addLabel(options)
