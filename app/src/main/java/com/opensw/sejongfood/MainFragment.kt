@@ -63,12 +63,12 @@ class MainFragment : Fragment() {
 
                 override fun getPosition(): LatLng {
                     // 지도 시작 시 위치 좌표를 설정
-                    return LatLng.from(37.406960, 127.115587)
+                    return LatLng.from(37.55101, 127.07431)
                 }
 
                 override fun getZoomLevel(): Int {
                     // 지도 시작 시 확대/축소 줌 레벨 설정
-                    return 15
+                    return 17
                 }
             },
         )
