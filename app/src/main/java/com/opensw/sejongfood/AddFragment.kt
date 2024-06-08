@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.camera.CameraAnimation
+import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.LabelOptions
 import com.opensw.sejongfood.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
@@ -48,6 +52,28 @@ class AddFragment : Fragment() {
             },
             object : KakaoMapReadyCallback() {
                 override fun onMapReady(kakaoMap: KakaoMap) {
+                    kakaoMap.cameraMinLevel = 17
+
+                    kakaoMap.setOnMapClickListener { _, latLng, _, _ ->
+                        kakaoMap.labelManager?.layer?.removeAll()
+                        Toast.makeText(requireActivity(), latLng.latitude.toString(), Toast.LENGTH_SHORT).show()
+//
+                        val options = LabelOptions.from(
+                            LatLng.from(
+                                latLng.latitude,
+                                latLng.longitude,
+                                )
+                            )
+                            .setStyles(R.drawable.icon_maker)
+
+                        val layer = kakaoMap.labelManager?.layer
+                        layer?.addLabel(options)
+
+                        kakaoMap.moveCamera(
+                            CameraUpdateFactory.newCenterPosition(latLng),
+                            CameraAnimation.from(500),
+                        )
+                    }
                 }
 
                 override fun getPosition(): LatLng {
