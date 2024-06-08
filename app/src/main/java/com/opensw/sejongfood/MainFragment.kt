@@ -49,24 +49,28 @@ class MainFragment : Fragment() {
             "a75c80b77b641c9665023314aea7c763",
         )
 
-        binding.mapView.start(object : MapLifeCycleCallback() {
-            override fun onMapDestroy() {
-            }
-            override fun onMapError(error: Exception) {
-            }
-        },
+        binding.mapView.start(
+            object : MapLifeCycleCallback() {
+                override fun onMapDestroy() {
+                }
+
+                override fun onMapError(error: Exception) {
+                }
+            },
             object : KakaoMapReadyCallback() {
-            override fun onMapReady(kakaoMap: KakaoMap) {
+                override fun onMapReady(kakaoMap: KakaoMap) {
+                }
+
+                override fun getPosition(): LatLng {
+                    // 지도 시작 시 위치 좌표를 설정
+                    return LatLng.from(37.406960, 127.115587)
+                }
+
+                override fun getZoomLevel(): Int {
+                    // 지도 시작 시 확대/축소 줌 레벨 설정
+                    return 15
+                }
             }
-            override fun getPosition(): LatLng {
-                // 지도 시작 시 위치 좌표를 설정
-                return LatLng.from(37.406960, 127.115587)
-            }
-            override fun getZoomLevel(): Int {
-                // 지도 시작 시 확대/축소 줌 레벨 설정
-                return 15
-            }
-        }
         )
     }
 }
