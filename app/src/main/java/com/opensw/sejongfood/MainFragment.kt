@@ -70,7 +70,7 @@ class MainFragment : Fragment() {
                     // 지도 시작 시 확대/축소 줌 레벨 설정
                     return 15
                 }
-            }
+            },
         )
     }
 }
