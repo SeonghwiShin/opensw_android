@@ -13,12 +13,12 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddBinding.inflate(
             inflater,
             container,
-            false
+            false,
         )
         return binding.root
     }
