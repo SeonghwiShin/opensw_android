@@ -1,7 +1,9 @@
 package com.opensw.sejongfood
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -29,6 +31,7 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         KakaoMapSdk.init(
             requireActivity(),
@@ -58,5 +61,25 @@ class AddFragment : Fragment() {
                 }
             },
         )
+
+        // MapView를 터치하는 동안 ScrollView의 스크롤을 비활성화
+        binding.viewMapTransparent.setOnTouchListener { view, motionEvent ->
+            val action = motionEvent.action
+            when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.scrollView.requestDisallowInterceptTouchEvent(true)
+                    false
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.scrollView.requestDisallowInterceptTouchEvent(false)
+                    true
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    binding.scrollView.requestDisallowInterceptTouchEvent(true)
+                    false
+                }
+                else -> true
+            }
+        }
     }
 }
