@@ -17,8 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = MainAdapter(this)
         binding.viewpager.adapter = adapter
+        binding.viewpager.isUserInputEnabled = false
 
-        val tabTitles = arrayOf("Main", "Wish", "Other")
+        val tabTitles = arrayOf("메인", "찜한 목록", "추가하기")
         TabLayoutMediator(binding.tablayout, binding.viewpager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
