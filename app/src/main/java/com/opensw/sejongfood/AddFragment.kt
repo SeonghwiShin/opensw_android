@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.opensw.sejongfood.databinding.FragmentWishBinding
+import com.opensw.sejongfood.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
-    private lateinit var binding: FragmentWishBinding
+    private lateinit var binding: FragmentAddBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentWishBinding.inflate(
+        binding = FragmentAddBinding.inflate(
             inflater,
             container,
             false,
