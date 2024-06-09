@@ -11,6 +11,9 @@ import com.kakao.vectormap.KakaoMapSdk
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.MapView
+import com.kakao.vectormap.camera.CameraAnimation
+import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.LabelOptions
 import com.opensw.sejongfood.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -59,8 +62,27 @@ class MainFragment : Fragment() {
             },
             object : KakaoMapReadyCallback() {
                 override fun onMapReady(kakaoMap: KakaoMap) {
-                }
 
+                    val options = LabelOptions.from(
+                        LatLng.from(
+                            37.54972382209993,
+                            127.07525938973366,
+                        )
+                    ).setStyles(R.drawable.icon_maker)
+                    options.labelId = "1"
+
+                    val layer = kakaoMap.labelManager?.layer
+                    layer?.addLabel(options)
+
+                    kakaoMap.setOnLabelClickListener { kakaoMap, labelLayer, label ->
+                        kakaoMap.moveCamera(
+                            CameraUpdateFactory.newCenterPosition(label.position),
+                            CameraAnimation.from(200)
+                        )
+                        val detailBottomSheet = DetailBottomSheet()
+                        detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+                    }
+                }
                 override fun getPosition(): LatLng {
                     // 지도 시작 시 위치 좌표를 설정
                     return LatLng.from(37.55101, 127.07431)
@@ -72,9 +94,5 @@ class MainFragment : Fragment() {
                 }
             },
         )
-        binding.test.setOnClickListener {
-            val detailBottomSheet = DetailBottomSheet()
-            detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
-        }
     }
 }
