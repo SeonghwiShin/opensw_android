@@ -31,7 +31,8 @@ class WishFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         val dataList = listOf(
-            PlaceData("와플대학 세종대학생회관캠퍼스",
+            PlaceData(
+                "와플대학 세종대학생회관캠퍼스",
                 "서울 광진구 능동로 209 지하1층 (군자동)",
                 4.0f,
                 5,
