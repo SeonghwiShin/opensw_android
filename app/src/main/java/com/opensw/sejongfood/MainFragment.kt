@@ -72,5 +72,9 @@ class MainFragment : Fragment() {
                 }
             },
         )
+        binding.test.setOnClickListener {
+            val detailBottomSheet = DetailBottomSheet()
+            detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+        }
     }
 }
