@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.opensw.sejongfood.databinding.ItemHolderBinding
 
-class WishAdapter(private val dataList: List<PlaceData>) :
-    RecyclerView.Adapter<WishAdapter.ViewHolder>() {
+class WishAdapter(
+    private val dataList: List<PlaceData>
+) : RecyclerView.Adapter<WishAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: ItemHolderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        private val binding: ItemHolderBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: PlaceData) {
             with(binding) {
                 textViewTitle.text = data.title
@@ -22,12 +24,18 @@ class WishAdapter(private val dataList: List<PlaceData>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
         val binding = ItemHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         holder.bind(dataList[position])
     }
 
