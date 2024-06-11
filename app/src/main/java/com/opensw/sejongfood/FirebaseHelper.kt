@@ -61,6 +61,31 @@ class FirebaseHelper(
             }
     }
 
+    fun addReviewToPlace(index: Int, review: Review, onComplete: () -> Unit) {
+        val placeDocRef = db.collection("places").document(index.toString())
+
+        placeDocRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                val placeData = document.toObject(PlaceData::class.java)
+                placeData?.let {
+                    val updatedReviews = it.review.toMutableList()
+                    updatedReviews.add(review)
+                    placeDocRef.update("review", updatedReviews)
+                        .addOnSuccessListener {
+                            onComplete()
+                        }
+                        .addOnFailureListener { e ->
+                            error()
+                            onComplete()
+                        }
+                }
+            } else {
+                error()
+                onComplete()
+            }
+        }
+    }
+
     private fun error() {
         Toast.makeText(context, "에러", Toast.LENGTH_SHORT).show()
     }

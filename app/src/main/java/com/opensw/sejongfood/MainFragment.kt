@@ -76,7 +76,7 @@ class MainFragment : Fragment() {
                         FirebaseHelper(requireActivity()).getPlaceDataByIndex(label.labelId.toInt()) { placeData ->
                             if (placeData != null) {
                                 val detailBottomSheet = DetailBottomSheet()
-                                detailBottomSheet.setPlaceData(placeData)
+                                detailBottomSheet.setPlaceData(placeData, label.labelId.toInt())
                                 detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
                             }
                         }
