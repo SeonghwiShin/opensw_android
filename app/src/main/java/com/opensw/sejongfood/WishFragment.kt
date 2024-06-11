@@ -11,6 +11,7 @@ import com.opensw.sejongfood.databinding.FragmentWishBinding
 class WishFragment : Fragment() {
     private lateinit var binding: FragmentWishBinding
     private var adapter: WishAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +31,7 @@ class WishFragment : Fragment() {
         super.onResume()
         adapter?.refreshData(SharedPreferenceUtil(requireActivity()).getPlaceDataList().toMutableList())
     }
+
     private fun initView() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
