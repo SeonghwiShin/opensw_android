@@ -15,11 +15,11 @@ class WishAdapter(
         fun bind(data: PlaceData) {
             with(binding) {
                 textViewTitle.text = data.title
-                textViewBasicInfo.text = data.basicInfo
+                textViewBasicInfo.text = "fadafd"
                 textRatring.text = data.rating.toString()
                 ratingbar.rating = data.rating
                 textReviewCount.text = "(${data.reviewCount})"
-                textRecommend.text = data.recommendMenu
+//                textRecommend.text = data.recommendMenu
             }
         }
     }
