@@ -3,10 +3,12 @@ package com.opensw.sejongfood
 import android.content.Context
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
-import com.google.firebase.firestore.toObjects
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 
-class FirebaseHelper(private val context: Context) {
+class FirebaseHelper(
+    private val context: Context
+) {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun addPlaceData(placeData: PlaceData) {
@@ -35,7 +37,7 @@ class FirebaseHelper(private val context: Context) {
                 val placeList = documents.toObjects<PlaceData>()
                 onComplete(placeList)
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 error()
                 onComplete(emptyList())
             }
@@ -53,7 +55,7 @@ class FirebaseHelper(private val context: Context) {
                     onComplete(placeData)
                 }
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 error()
                 onComplete(null)
             }
@@ -62,5 +64,4 @@ class FirebaseHelper(private val context: Context) {
     private fun error() {
         Toast.makeText(context, "에러", Toast.LENGTH_SHORT).show()
     }
-
 }

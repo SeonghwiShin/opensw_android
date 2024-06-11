@@ -32,15 +32,15 @@ class WishFragment : Fragment() {
 
         val dummyReviewList = mutableListOf(
             Review(
-                    rating = 4.5f,
-                    contents = "와플이 정말 맛있어요! 커피도 좋아요.",
-                    recommendMenu = "플레인와플, 아메리카노",
-                ),
+                rating = 4.5f,
+                contents = "와플이 정말 맛있어요! 커피도 좋아요.",
+                recommendMenu = "플레인와플, 아메리카노",
+            ),
             Review(
                 rating = 4.0f,
                 contents = "친절한 직원과 깔끔한 매장.",
                 recommendMenu = "플레인와플, 아메리카노",
-                ),
+            ),
         )
         val dataList = listOf(
             PlaceData(
@@ -51,7 +51,7 @@ class WishFragment : Fragment() {
                 rating = 4.0f,
                 latitude = 37.54972382209993,
                 longitude = 127.07525938973366,
-            )
+            ),
         )
 
         val adapter = WishAdapter(dataList)

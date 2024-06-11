@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.FirebaseApp
 import com.opensw.sejongfood.databinding.ActivityMainBinding
-import kotlinx.coroutines.Job
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -55,7 +55,6 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         binding.textViewTitle.text = placeData?.title
         binding.textReviewCount.text = placeData?.reviewCount.toString()
         binding.ratingbar.rating = placeData?.rating!!
-
     }
 
     override fun onDestroyView() {
