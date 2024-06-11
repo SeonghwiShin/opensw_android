@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.opensw.sejongfood.databinding.ItemHolderBinding
 
 class WishAdapter(
-    private val dataList: List<PlaceData>
+    private val dataList: MutableList<PlaceData>
 ) : RecyclerView.Adapter<WishAdapter.ViewHolder>() {
 
     inner class ViewHolder(
@@ -16,10 +16,17 @@ class WishAdapter(
             with(binding) {
                 textViewTitle.text = data.title
                 textViewBasicInfo.text = "fadafd"
-                textRatring.text = data.rating.toString()
-                ratingbar.rating = data.rating
+                val averageRating = data.review.map { it.rating }?.average() ?: 0.0
+                binding.ratingbar.rating = averageRating.toFloat()
+                binding.textRatring.text = String.format("%.1f", averageRating)
                 textReviewCount.text = "(${data.reviewCount})"
-//                textRecommend.text = data.recommendMenu
+                val recommendMenus = data.review.map { it.recommendMenu }.distinct().joinToString(", ")
+                binding.textRecommend.text = recommendMenus
+                binding.textDelete.setOnClickListener {
+                    SharedPreferenceUtil(it.context).removePlaceData(data.index)
+                    dataList.remove(data)
+                    notifyDataSetChanged()
+                }
             }
         }
     }
@@ -37,6 +44,12 @@ class WishAdapter(
         position: Int
     ) {
         holder.bind(dataList[position])
+    }
+
+    fun refreshData(data: MutableList<PlaceData>) {
+        dataList.clear()
+        dataList.addAll(data)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = dataList.size

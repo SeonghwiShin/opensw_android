@@ -3,6 +3,7 @@ package com.opensw.sejongfood
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -64,6 +66,8 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
 
         val averageRating = placeData?.review?.map { it.rating }?.average() ?: 0.0
         binding.ratingbar.rating = averageRating.toFloat()
+        binding.textRatring.text = String.format("%.1f", averageRating)
+
 
         val recommendMenus = placeData?.review?.map { it.recommendMenu }?.distinct()?.joinToString(", ")
         binding.textRecommend.text = recommendMenus
@@ -80,6 +84,14 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         }
         binding.btnAddRevieweEmpty.setOnClickListener {
             showAddReviewDialog()
+        }
+        binding.checkboxWish.isChecked = SharedPreferenceUtil(requireActivity()).isPlaceDataIndexExists(placeData!!.index)
+        binding.checkboxWish.setOnClickListener {
+            if (binding.checkboxWish.isChecked) {
+                SharedPreferenceUtil(requireActivity()).addPlaceData(placeData!!)
+            } else {
+                SharedPreferenceUtil(requireActivity()).removePlaceData(placeData!!.index)
+            }
         }
     }
 
