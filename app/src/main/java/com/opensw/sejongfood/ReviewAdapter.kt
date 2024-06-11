@@ -26,7 +26,11 @@ class ReviewAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemReviewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemReviewHolderBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 

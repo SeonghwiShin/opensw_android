@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +30,7 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         placeData = data
         index = i
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -128,7 +128,7 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         _binding = null
     }
 
-    fun dpToPx(context: Context, dp: Float): Float {
+    private fun dpToPx(context: Context, dp: Float): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
 }

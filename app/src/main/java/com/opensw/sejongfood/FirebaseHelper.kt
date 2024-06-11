@@ -77,7 +77,6 @@ class FirebaseHelper(
                         .addOnFailureListener { e ->
                             error()
                             onComplete()
-
                         }
                 }
             } else {
