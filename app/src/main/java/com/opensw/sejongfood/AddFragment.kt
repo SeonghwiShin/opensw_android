@@ -8,6 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
@@ -20,6 +24,8 @@ import com.opensw.sejongfood.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
+    private var mLatitude : Double = 0.0
+    private var mLongitude : Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +38,7 @@ class AddFragment : Fragment() {
             false,
         )
         initView()
+
         return binding.root
     }
 
@@ -62,6 +69,8 @@ class AddFragment : Fragment() {
                                 latLng.longitude,
                             )
                         ).setStyles(R.drawable.icon_maker)
+                        mLatitude = latLng.latitude
+                        mLongitude = latLng.longitude
 
                         val layer = kakaoMap.labelManager?.layer
                         layer?.addLabel(options)
@@ -102,6 +111,27 @@ class AddFragment : Fragment() {
                     false
                 }
                 else -> true
+            }
+        }
+        FirebaseApp.initializeApp(requireActivity())
+
+        binding.btnSave.setOnClickListener {
+            if (mLatitude != 0.0 || mLongitude != 0.0 || binding.editTitle.text.isNotEmpty() || binding.editTitle.text.isNotEmpty()) {
+                val firebaseDatabaseHelper = FirebaseHelper(requireActivity())
+
+                val placeData = PlaceData(
+                    index = 0,
+                    review = mutableListOf<Review>(),
+                    reviewCount = 0,
+                    rating = 4.5f,
+                    latitude = mLatitude,
+                    longitude = mLongitude,
+                    title = binding.editTitle.text.toString(),
+                )
+                Log.d("seonghwi", "sadda")
+                firebaseDatabaseHelper.addPlaceData(placeData)
+            } else {
+                Toast.makeText(requireActivity(), "입력하지 않은 내용이 있습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
