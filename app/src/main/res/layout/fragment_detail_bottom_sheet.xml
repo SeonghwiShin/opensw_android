@@ -57,7 +57,7 @@
             android:id="@+id/text_ratring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4.0"
+            android:text="0.0"
             app:layout_constraintBottom_toBottomOf="@id/ratingbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/ratingbar" />
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="(5)"
+            android:text="(0)"
             app:layout_constraintBottom_toBottomOf="@id/ratingbar"
             app:layout_constraintStart_toEndOf="@id/ratingbar"
             app:layout_constraintTop_toTopOf="@id/ratingbar" />
