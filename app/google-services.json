@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "208320168493",
+    "project_id": "opensw-android",
+    "storage_bucket": "opensw-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208320168493:android:2e31ba77e9c9abce2b6ea4",
+        "android_client_info": {
+          "package_name": "com.opensw.sejongfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfmRaeP-RxF_1EI-aKc0kwpTM6p8E8Rp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
