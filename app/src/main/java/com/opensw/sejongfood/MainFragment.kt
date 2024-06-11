@@ -25,11 +25,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentMainBinding.inflate(
-            inflater,
-            container,
-            false,
-        )
+        binding = FragmentMainBinding.inflate(inflater, container, false)
 
         initView()
 
@@ -47,10 +43,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() {
-        KakaoMapSdk.init(
-            requireActivity(),
-            "a75c80b77b641c9665023314aea7c763",
-        )
+        KakaoMapSdk.init(requireActivity(), "a75c80b77b641c9665023314aea7c763")
 
         binding.mapView.start(
             object : MapLifeCycleCallback() {
@@ -63,26 +56,33 @@ class MainFragment : Fragment() {
             object : KakaoMapReadyCallback() {
                 override fun onMapReady(kakaoMap: KakaoMap) {
 
-                    val options = LabelOptions.from(
-                        LatLng.from(
-                            37.54972382209993,
-                            127.07525938973366,
-                        )
-                    ).setStyles(R.drawable.icon_maker)
-                    options.labelId = "1"
+                    FirebaseHelper(requireActivity()).getAllPlaceData { placeList ->
+                        for (place in placeList) {
+                            val options = LabelOptions.from(
+                                LatLng.from(place.latitude, place.longitude)
+                            ).setStyles(R.drawable.icon_maker)
+                            options.labelId = place.index.toString()
 
-                    val layer = kakaoMap.labelManager?.layer
-                    layer?.addLabel(options)
+                            val layer = kakaoMap.labelManager?.layer
+                            layer?.addLabel(options)
+                        }
+                    }
 
-                    kakaoMap.setOnLabelClickListener { kakaoMap, labelLayer, label ->
+                    kakaoMap.setOnLabelClickListener { _, _, label ->
                         kakaoMap.moveCamera(
                             CameraUpdateFactory.newCenterPosition(label.position),
                             CameraAnimation.from(200)
                         )
-                        val detailBottomSheet = DetailBottomSheet()
-                        detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+                        FirebaseHelper(requireActivity()).getPlaceDataByIndex(label.labelId.toInt()) { placeData ->
+                            if (placeData != null) {
+                                val detailBottomSheet = DetailBottomSheet()
+                                detailBottomSheet.setPlaceData(placeData)
+                                detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+                            }
+                        }
                     }
                 }
+
                 override fun getPosition(): LatLng {
                     // 지도 시작 시 위치 좌표를 설정
                     return LatLng.from(37.55101, 127.07431)

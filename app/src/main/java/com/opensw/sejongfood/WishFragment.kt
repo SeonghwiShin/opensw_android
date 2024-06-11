@@ -30,13 +30,27 @@ class WishFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+        val dummyReviewList = mutableListOf(
+            Review(
+                rating = 4.5f,
+                contents = "와플이 정말 맛있어요! 커피도 좋아요.",
+                recommendMenu = "플레인와플, 아메리카노",
+            ),
+            Review(
+                rating = 4.0f,
+                contents = "친절한 직원과 깔끔한 매장.",
+                recommendMenu = "플레인와플, 아메리카노",
+            ),
+        )
         val dataList = listOf(
             PlaceData(
-                "와플대학 세종대학생회관캠퍼스",
-                "서울 광진구 능동로 209 지하1층 (군자동)",
-                4.0f,
-                5,
-                "플레인와플, 아메리카노"
+                index = 1,
+                reviewCount = dummyReviewList.size,
+                review = dummyReviewList,
+                title = "와플대학 세종대학생회관캠퍼스",
+                rating = 4.0f,
+                latitude = 37.54972382209993,
+                longitude = 127.07525938973366,
             ),
         )
 
