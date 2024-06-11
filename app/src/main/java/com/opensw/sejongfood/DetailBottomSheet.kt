@@ -15,7 +15,11 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private var placeData: PlaceData? = null
 
+    fun setPlaceData(data: PlaceData) {
+        placeData = data
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,6 +51,11 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
             v.onTouchEvent(event)
             true
         }
+
+        binding.textViewTitle.text = placeData?.title
+        binding.textReviewCount.text = placeData?.reviewCount.toString()
+        binding.ratingbar.rating = placeData?.rating!!
+
     }
 
     override fun onDestroyView() {

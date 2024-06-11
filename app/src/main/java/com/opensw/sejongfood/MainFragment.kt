@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.Firebase
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
@@ -63,24 +64,35 @@ class MainFragment : Fragment() {
             object : KakaoMapReadyCallback() {
                 override fun onMapReady(kakaoMap: KakaoMap) {
 
-                    val options = LabelOptions.from(
-                        LatLng.from(
-                            37.54972382209993,
-                            127.07525938973366,
-                        )
-                    ).setStyles(R.drawable.icon_maker)
-                    options.labelId = "1"
+                    FirebaseHelper(requireActivity()).getAllPlaceData {placeList ->
+                        for (place in placeList) {
+                            val options = LabelOptions.from(
+                                LatLng.from(
+                                    place.latitude,
+                                    place.longitude,
+                                )
+                            ).setStyles(R.drawable.icon_maker)
+                            options.labelId = place.index.toString()
 
-                    val layer = kakaoMap.labelManager?.layer
-                    layer?.addLabel(options)
+                            val layer = kakaoMap.labelManager?.layer
+                            layer?.addLabel(options)
+                        }
+                    }
 
                     kakaoMap.setOnLabelClickListener { kakaoMap, labelLayer, label ->
                         kakaoMap.moveCamera(
                             CameraUpdateFactory.newCenterPosition(label.position),
                             CameraAnimation.from(200)
                         )
-                        val detailBottomSheet = DetailBottomSheet()
-                        detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+                        FirebaseHelper(requireActivity()).getPlaceDataByIndex(label.labelId.toInt()) { placeData ->
+                            if (placeData != null) {
+                                val detailBottomSheet = DetailBottomSheet()
+                                detailBottomSheet.setPlaceData(placeData)
+                                detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
+                            } else {
+                            }
+
+                        }
                     }
                 }
                 override fun getPosition(): LatLng {
