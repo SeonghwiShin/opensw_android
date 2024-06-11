@@ -68,6 +68,7 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         binding.ratingbar.rating = averageRating.toFloat()
         binding.textRatring.text = String.format("%.1f", averageRating)
 
+        binding.textViewBasicInfo.text = placeData?.address
 
         val recommendMenus = placeData?.review?.map { it.recommendMenu }?.distinct()?.joinToString(", ")
         binding.textRecommend.text = recommendMenus
