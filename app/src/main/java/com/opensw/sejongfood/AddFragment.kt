@@ -57,6 +57,7 @@ class AddFragment : Fragment() {
             object : KakaoMapReadyCallback() {
                 override fun onMapReady(kakaoMap: KakaoMap) {
                     kakaoMap.cameraMinLevel = 17
+                    kakaoMap.cameraMaxLevel = 17
 
                     kakaoMap.setOnMapClickListener { _, latLng, _, _ ->
                         kakaoMap.labelManager?.layer?.removeAll()
