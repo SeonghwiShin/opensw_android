@@ -2,6 +2,7 @@ package com.opensw.sejongfood
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelStyles
 import com.opensw.sejongfood.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), TouchEventListener {
     private lateinit var binding: FragmentMainBinding
     private lateinit var mapView: MapView
 
@@ -64,7 +65,7 @@ class MainFragment : Fragment() {
                     FirebaseHelper(requireActivity()).getAllPlaceData { placeList ->
                         for (place in placeList) {
                             val options = LabelOptions.from(
-                                LatLng.from(place.latitude, place.longitude)
+                                LatLng.from(place.latitude, place.longitude),
                             ).setStyles(R.drawable.icon_maker1)
                             options.labelId = place.index.toString()
 
@@ -74,17 +75,40 @@ class MainFragment : Fragment() {
                     }
 
                     kakaoMap.setOnLabelClickListener { _, _, label ->
-//                        oldLabel?.changeStyles(LabelStyles.from(requireActivity(), R.drawable.icon_maker1))
-//
-//                        label.changeStyles(LabelStyles.from(requireActivity(), R.drawable.icon_maker))
+                        if (oldLabel != null) {
+                            val oldTmpLatLng = oldLabel?.position
+                            val oldTmpId = oldLabel?.labelId
+                            oldLabel?.remove()
+                            val oldOptions = LabelOptions.from(
+                                oldTmpLatLng,
+                            ).setStyles(R.drawable.icon_maker1)
+                            oldOptions.labelId = oldTmpId
+
+                            val layer = kakaoMap.labelManager?.layer
+                            layer?.addLabel(oldOptions)
+                        }
+
+                        val tmpLatLng = label.position
+                        val tmpId = label.labelId
+                        label.remove()
+
+                        val options = LabelOptions.from(
+                            tmpLatLng,
+                        ).setStyles(R.drawable.icon_maker)
+                        options.labelId = tmpId
+
+                        val layer = kakaoMap.labelManager?.layer
+
+                        layer?.addLabel(options)
+
 
                         kakaoMap.moveCamera(
                             CameraUpdateFactory.newCenterPosition(label.position),
-                            CameraAnimation.from(200)
+                            CameraAnimation.from(200),
                         )
                         FirebaseHelper(requireActivity()).getPlaceDataByIndex(label.labelId.toInt()) { placeData ->
                             if (placeData != null) {
-                                val detailBottomSheet = DetailBottomSheet()
+                                val detailBottomSheet = DetailBottomSheet(this@MainFragment)
                                 detailBottomSheet.setPlaceData(placeData, label.labelId.toInt())
                                 detailBottomSheet.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogBorder20WhiteTheme)
                                 detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
@@ -105,5 +129,9 @@ class MainFragment : Fragment() {
                 }
             },
         )
+    }
+
+    override fun onTouchEvent(event: MotionEvent) {
+        binding.mapView.dispatchTouchEvent(event)
     }
 }

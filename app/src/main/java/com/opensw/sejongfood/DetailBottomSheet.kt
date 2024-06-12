@@ -3,24 +3,23 @@ package com.opensw.sejongfood
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.common.util.SharedPreferencesUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.opensw.sejongfood.databinding.DialogAddReviewBinding
 import com.opensw.sejongfood.databinding.FragmentDetailBottomSheetBinding
 
-class DetailBottomSheet : BottomSheetDialogFragment() {
+class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -42,6 +41,17 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (dialog != null) {
+            val touchSideView = dialog!!.window?.decorView?.findViewById<View>(com.google.android.material.R.id.touch_outside)
+            touchSideView?.setOnTouchListener { v, event ->
+                touchEventListener?.onTouchEvent(event)
+                false
+            }
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +59,7 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         val dialog = dialog as BottomSheetDialog
         val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as View
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-
+        touchEventListener
         binding.headerLayout.viewTreeObserver.addOnGlobalLayoutListener {
             val headerHeight = binding.headerLayout.height
             bottomSheetBehavior.peekHeight = headerHeight + dpToPx(requireActivity(), 20.0f).toInt()
@@ -58,10 +68,9 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
         binding.nestedScrollView.setOnTouchListener { v, event ->
             v.parent.requestDisallowInterceptTouchEvent(true)
             v.onTouchEvent(event)
-            true
+            false
         }
 
-        binding.textViewTitle.text = placeData?.title
         binding.textReviewCount.text = "(${placeData?.review?.size.toString()})"
 
         val averageRating = placeData?.review?.map { it.rating }?.average() ?: 0.0
@@ -144,4 +153,7 @@ class DetailBottomSheet : BottomSheetDialogFragment() {
     private fun dpToPx(context: Context, dp: Float): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
+}
+interface TouchEventListener {
+    fun onTouchEvent(event: MotionEvent)
 }
