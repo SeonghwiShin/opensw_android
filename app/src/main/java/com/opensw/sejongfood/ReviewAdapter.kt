@@ -16,6 +16,7 @@ class ReviewAdapter(
             with(binding) {
                 ratingbar.rating = data.rating
                 textIndex.text = "${position + 1}번 유저"
+                textRatring.text = data.rating.toString()
                 textContent.text = data.contents
                 textRecommend.text = data.recommendMenu
             }
