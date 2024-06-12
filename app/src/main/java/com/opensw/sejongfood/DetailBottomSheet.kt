@@ -19,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.opensw.sejongfood.databinding.DialogAddReviewBinding
 import com.opensw.sejongfood.databinding.FragmentDetailBottomSheetBinding
 
-class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomSheetDialogFragment() {
+class DetailBottomSheet(private var touchEventListener: TouchEventListener?) : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
@@ -71,13 +71,18 @@ class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomShe
             false
         }
 
-        binding.textReviewCount.text = "(${placeData?.review?.size.toString()})"
-
-        val averageRating = placeData?.review?.map { it.rating }?.average() ?: 0.0
-        binding.ratingbar.rating = averageRating.toFloat()
-        binding.textRatring.text = String.format("%.1f", averageRating)
+        if (placeData?.review?.isNotEmpty() == true ) {
+            binding.textReviewCount.text = "(${placeData?.review?.size.toString()})"
+            val averageRating = placeData?.review?.map { it.rating }?.average() ?: 0.0
+            binding.ratingbar.rating = averageRating.toFloat()
+            binding.textRatring.text = String.format("%.1f", averageRating)
+        } else {
+            binding.textReviewCount.text = "(0)"
+            binding.textRatring.text = "0"
+        }
 
         binding.textViewBasicInfo.text = placeData?.address
+        binding.textViewTitle.text = placeData?.title
 
         val recommendMenus = placeData?.review?.map { it.recommendMenu }?.distinct()?.joinToString(", ")
         binding.textRecommend.text = recommendMenus
@@ -139,6 +144,25 @@ class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomShe
                 placeData?.review?.add(review)
                 adapter?.notifyDataSetChanged()
                 updateReviewVisibility()
+                FirebaseHelper(requireActivity()).getPlaceDataByIndex(index) { placeData ->
+                    if (placeData != null) {
+                        if (placeData?.review?.isNotEmpty() == true ) {
+                            binding.textReviewCount.text = "(${placeData?.review?.size.toString()})"
+                            val averageRating = placeData?.review?.map { it.rating }?.average() ?: 0.0
+                            binding.ratingbar.rating = averageRating.toFloat()
+                            binding.textRatring.text = String.format("%.1f", averageRating)
+                        } else {
+                            binding.textReviewCount.text = "(0)"
+                            binding.textRatring.text = "0"
+                        }
+
+                        binding.textViewBasicInfo.text = placeData?.address
+                        binding.textViewTitle.text = placeData?.title
+
+                        val recommendMenus = placeData?.review?.map { it.recommendMenu }?.distinct()?.joinToString(", ")
+                        binding.textRecommend.text = recommendMenus
+                    }
+                }
             }
         }
 

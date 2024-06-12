@@ -30,6 +30,17 @@ class FirebaseHelper(
             }
     }
 
+    fun getPlaceIndex(onComplete: (Int) -> Unit){
+        db.collection("places")
+            .get()
+            .addOnSuccessListener { documents ->
+                onComplete(documents.size())
+            }
+            .addOnFailureListener {
+                error()
+            }
+    }
+
     fun getAllPlaceData(onComplete: (List<PlaceData>) -> Unit) {
         db.collection("places")
             .get()
