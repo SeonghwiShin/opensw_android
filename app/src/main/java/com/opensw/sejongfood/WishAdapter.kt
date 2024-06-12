@@ -16,10 +16,15 @@ class WishAdapter(
             with(binding) {
                 textViewTitle.text = data.title
                 textViewBasicInfo.text = "fadafd"
-                val averageRating = data.review.map { it.rating }?.average() ?: 0.0
-                binding.ratingbar.rating = averageRating.toFloat()
-                binding.textRatring.text = String.format("%.1f", averageRating)
-                binding.textReviewCount.text = "(${data.review?.size.toString()})"
+                if (data.review.isEmpty()) {
+                    binding.ratingbar.rating = 0f
+                    binding.textReviewCount.text = "0"
+                } else {
+                    val averageRating = data.review.map { it.rating }?.average() ?: 0.0
+                    binding.ratingbar.rating = averageRating.toFloat()
+                    binding.textRatring.text = String.format("%.1f", averageRating)
+                    binding.textReviewCount.text = "(${data.review?.size.toString()})"
+                }
                 val recommendMenus = data.review.map { it.recommendMenu }.distinct().joinToString(", ")
                 binding.textRecommend.text = recommendMenus
                 binding.textViewBasicInfo.text = data.address

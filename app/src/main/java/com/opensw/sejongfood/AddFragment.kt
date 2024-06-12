@@ -116,12 +116,15 @@ class AddFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             if (mLatitude != 0.0 || mLongitude != 0.0 || binding.editTitle.text!!.isNotEmpty() || binding.editTitle.text!!.isNotEmpty()) {
                 val firebaseDatabaseHelper = FirebaseHelper(requireActivity())
-
+                var newIndex = 0
+                firebaseDatabaseHelper.getPlaceIndex {
+                    newIndex = it + 1
+                }
                 val placeData = PlaceData(
-                    index = 0,
+                    index = newIndex,
                     review = mutableListOf<Review>(),
                     reviewCount = 0,
-                    rating = 4.5f,
+                    rating = 0f,
                     latitude = mLatitude,
                     longitude = mLongitude,
                     title = binding.editTitle.text.toString(),
@@ -129,6 +132,9 @@ class AddFragment : Fragment() {
 
                 )
                 firebaseDatabaseHelper.addPlaceData(placeData)
+                Toast.makeText(requireActivity(), "저장되었습니다.", Toast.LENGTH_SHORT).show()
+                binding.editTitle.setText("")
+                binding.editAddress.setText("")
             } else {
                 Toast.makeText(requireActivity(), "입력하지 않은 내용이 있습니다.", Toast.LENGTH_SHORT).show()
             }
