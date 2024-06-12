@@ -113,7 +113,7 @@ class AddFragment : Fragment() {
         FirebaseApp.initializeApp(requireActivity())
 
         binding.btnSave.setOnClickListener {
-            if (mLatitude != 0.0 || mLongitude != 0.0 || binding.editTitle.text.isNotEmpty() || binding.editTitle.text.isNotEmpty()) {
+            if (mLatitude != 0.0 || mLongitude != 0.0 || binding.editTitle.text!!.isNotEmpty() || binding.editTitle.text!!.isNotEmpty()) {
                 val firebaseDatabaseHelper = FirebaseHelper(requireActivity())
 
                 val placeData = PlaceData(
@@ -124,7 +124,7 @@ class AddFragment : Fragment() {
                     latitude = mLatitude,
                     longitude = mLongitude,
                     title = binding.editTitle.text.toString(),
-                    address = binding.editAddress.toString()
+                    address = binding.editAddress.text.toString()
 
                 )
                 firebaseDatabaseHelper.addPlaceData(placeData)

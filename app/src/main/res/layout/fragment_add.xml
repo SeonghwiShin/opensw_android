@@ -23,7 +23,7 @@
                 android:text="추가할 위치를 골라주세요"
                 android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.kakao.vectormap.MapView
                 android:id="@+id/map_view"
@@ -32,7 +32,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toBottomOf="@id/text_1"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <View
                 android:id="@+id/view_map_transparent"
@@ -42,7 +42,7 @@
                 app:layout_constraintStart_toStartOf="@id/map_view"
                 app:layout_constraintEnd_toEndOf="@id/map_view"
                 app:layout_constraintBottom_toBottomOf="@id/map_view"
-                android:src="@android:color/transparent"/>
+                android:src="@android:color/transparent" />
 
             <TextView
                 android:id="@+id/text_2"
@@ -53,16 +53,16 @@
                 android:text="식당 이름"
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@id/map_view"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/edit_title"
-                android:layout_width="200dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="이름"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/text_2"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
             <EditText
                 android:id="@+id/edit_address"
@@ -80,9 +80,40 @@
                 android:layout_height="300dp"
                 android:layout_marginTop="20dp"
                 android:hint="내용"
-                app:layout_constraintTop_toBottomOf="@id/edit_address"
+                app:layout_constraintTop_toBottomOf="@id/edit_title"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이름" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="식당 주소"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_title"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/text_3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="주소" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_save"
@@ -91,8 +122,7 @@
                 android:layout_marginTop="20dp"
                 android:text="저장하기"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_content"/>
-
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.KakaoMapSdk
@@ -13,13 +14,17 @@ import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.MapView
 import com.kakao.vectormap.camera.CameraAnimation
 import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.label.LabelOptions
+import com.kakao.vectormap.label.LabelStyle
+import com.kakao.vectormap.label.LabelStyles
 import com.opensw.sejongfood.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var mapView: MapView
 
+    private var oldLabel: Label? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +65,7 @@ class MainFragment : Fragment() {
                         for (place in placeList) {
                             val options = LabelOptions.from(
                                 LatLng.from(place.latitude, place.longitude)
-                            ).setStyles(R.drawable.icon_maker)
+                            ).setStyles(R.drawable.icon_maker1)
                             options.labelId = place.index.toString()
 
                             val layer = kakaoMap.labelManager?.layer
@@ -69,6 +74,10 @@ class MainFragment : Fragment() {
                     }
 
                     kakaoMap.setOnLabelClickListener { _, _, label ->
+//                        oldLabel?.changeStyles(LabelStyles.from(requireActivity(), R.drawable.icon_maker1))
+//
+//                        label.changeStyles(LabelStyles.from(requireActivity(), R.drawable.icon_maker))
+
                         kakaoMap.moveCamera(
                             CameraUpdateFactory.newCenterPosition(label.position),
                             CameraAnimation.from(200)
@@ -77,9 +86,11 @@ class MainFragment : Fragment() {
                             if (placeData != null) {
                                 val detailBottomSheet = DetailBottomSheet()
                                 detailBottomSheet.setPlaceData(placeData, label.labelId.toInt())
+                                detailBottomSheet.setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogBorder20WhiteTheme)
                                 detailBottomSheet.show(requireActivity().supportFragmentManager, "DetailBottomSheet")
                             }
                         }
+                        oldLabel = label
                     }
                 }
 
