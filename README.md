@@ -142,3 +142,11 @@ description에 버그 재현 경로를 작성합니다 발생한 코드의 위�
 1.0.0 부터 (Major, Minor, Patch) 순으로 작성합니다. 안드로이드에서는 versionCode가 존재합니다. versionCode는 매 배포시 1씩 증가해서 올립니다.
 
 릴리즈 브랜치에서 버전코드와 버전네임을 올린 후 배포합니다. 배포후 마스터로 머지합니다.
+
+### 실행을 위한 버전
+---
+Android Studio Giraffe | 2022.3.1
+JavaVersion.VERSION_1_8
+targetSdk = 33
+
+
