@@ -1,5 +1,6 @@
 # 오픈소스SW개론 팀프로젝트
 
+---
 
 ## contributor
 
@@ -8,23 +9,40 @@
 - 22013527 조용준
 - 21011786 김도현
 
+---
 
-## 앱이름
+세종대학교 오픈소스sw개론 팀프로젝트 과제 안드로이드 프로젝트 레포지토리 입니다
 
-세종대학교 오픈소스sw개론 (팀이름) 안드로이드 프로젝트 레포지토리 입니다
+학교 근처의 식당, 카페 등을 서로 공유하고 리뷰를 작성 할 수 있는 안드로이드 커뮤니티 앱 입니다.
 
-(간단설명, 스크린샷)
+추가하고 싶은 장소가 있다면 추가할 수 있고, 리뷰를 작성하고 볼 수 있습니다.
 
+![Untitled](https://github.com/SeonghwiShin/opensw_android/assets/19940857/4f8ea5da-2b33-457c-9dda-9dfd50201933) | ![Untitled 1](https://github.com/SeonghwiShin/opensw_android/assets/19940857/9d2a1fe4-43b5-4553-be6d-e801262f4bc4)
+---|---|
 
-## 사용된 기술스택, 오픈소스 목록
+![Untitled 2](https://github.com/SeonghwiShin/opensw_android/assets/19940857/f733445b-68f1-41f8-b452-a0d60c13f0c3) | ![Untitled 3](https://github.com/SeonghwiShin/opensw_android/assets/19940857/b4b5d396-3e5f-4313-aef0-618319698aef)
+---|---|
 
-어쩌구저쩌구
+---
 
-## 커밋 룰
+### 사용된 기술스택, 오픈소스 목록
+---
 
+[https://github.com/firebase/firebase-android-sdk](https://github.com/firebase/firebase-android-sdk) 
+
+[https://github.com/material-components/material-components-android](https://github.com/material-components/material-components-android)
+
+[https://github.com/google/gson](https://github.com/google/gson)
+
+Kakao Map Android SDK V2
+
+Firebase Cloud Firestore를 이용해 노코드로 백엔드를 구현했습니다.
+
+### 커밋 룰
+---
 GitFlow를 사용하며 master, develop, release, feature, hotfix 브랜치를 사용합니다.
 
-master, develop에 직접 커밋 할 수 없습니다.
+master, develop에 직접 커밋 할 수 없습니다
 
 | 태그 이름 | 설명 |
 | --- | --- |
@@ -55,7 +73,9 @@ master, develop에 직접 커밋 할 수 없습니다.
 Resolves: #123
 ```
 
-## 코드컨벤션
+
+---
+ ### 코드컨벤션
 
 | 이름 | 예시 |
 | --- | --- |
@@ -71,52 +91,54 @@ Resolves: #123
 
 klint를 사용하여 일관화 된 코드를 작성합니다.
 
+
 ## PR 룰
+---
 
 PR의 제목은
- 
-```kotlin
+
+```
 [Feat] 회원가입 기능 추가
 [Fix] 닉네임 특수문자 버그 수정 Resolves:#001
 ```
 
-이런 스타일로 작성합니다.
-이슈에서 나온 버그에 대한 fix일 경우 PR 제목 뒤에 이슈번호를 달아줍니다.
+이런 스타일로 작성합니다. 이슈에서 나온 버그에 대한 fix일 경우 PR 제목 뒤에 이슈번호를 달아줍니다.
+
+PR을 올리면 본인을 Assignees하고 본인을 제외한 세명의 Reviewer를 태그합니다. 3명중 2명의 approve를 받아야 머지를 할 수 있습니다. 작성중인 pr에 해당하는 Labels를 달아줘야합니다.
+
+PR을 올리게 되면 klint를 사용하며 githut action을 통해 자동으로 확인합니다. lint에 맞지 않는 코드는 pr을 올리게 되면 github action을 통해 자동으로 피드백을 받을 수 있습니다. 린트에 맞지 않는 코드는 머지를 할 수 없습니다
+
+조건이 충족된 경우 팀장이 머지를 진행합니다.
 
 
-PR을 올리면 본인을 Assignees하고 본인을 제외한 세명의 Reviewer를 태그합니다. 
-3명중 2명의 approve를 받아야 머지를 할 수 있습니다.
-작성중인 pr에 해당하는 Labels를 달아줘야합니다.
+### Issues 룰
+---
 
-
-PR을 올리게 되면 klint를 사용하며 githut action을 통해 자동으로 확인합니다.
-lint에 맞지 않는 코드는 pr을 올리게 되면 github action을 통해 자동으로 피드백을 받을 수 있습니다.
-린트에 맞지 않는 코드는 머지를 할 수 없습니다
-
-
-## Issues 룰
 버그를 발견했으면 Issues를 작성합니다.
 
 제목
-```kotlin
+
+```
 닉네임 특수문자 버그
 ```
 
 내용
 
-```kotlin
+```
 회원가입 버튼 클릭 -> 닉네임에 특수문자 입력 후 회원가입 -> 회원가입 처리 오류 발생
 (RegisterActivity)
 
 갤럭시 s24 안드로이드 14.0.1
 ```
-description에 버그 재현 경로를 작성합니다
-발생한 코드의 위치를 알면 작성합니다.
-재현 기기의 모델명, Android 버전에 대해 작성합니다. 만약 ui이슈인 경우 해당 기기의 화면 해상도도 같이 작성합니다.
- 
+
+description에 버그 재현 경로를 작성합니다 발생한 코드의 위치를 알면 작성합니다. 재현 기기의 모델명, Android 버전에 대해 작성합니다. 만약 ui이슈인 경우 해당 기기의 화면 해상도도 같이 작성합니다.
+
 이슈 작성 후 수정할 담당자가 정해지면 Assignees를 달아준 후 해당 버그에 맞는 Labels를 달아줍니다.
 
 
-## 버전 명 관리
-1.0.0 부터 (Major, Minor, Patch) 순으로 작성합니다.
-안드로이드에서는 versionCode가 존재합니다. versionCode는 매 배포시 1씩 증가해서 올립니다.
+### 버전 명 관리
+---
+
+1.0.0 부터 (Major, Minor, Patch) 순으로 작성합니다. 안드로이드에서는 versionCode가 존재합니다. versionCode는 매 배포시 1씩 증가해서 올립니다.
+
+릴리즈 브랜치에서 버전코드와 버전네임을 올린 후 배포합니다. 배포후 마스터로 머지합니다.
