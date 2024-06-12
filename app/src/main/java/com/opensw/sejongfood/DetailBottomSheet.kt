@@ -41,6 +41,7 @@ class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomShe
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onStart() {
         super.onStart()
         if (dialog != null) {
@@ -59,7 +60,6 @@ class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomShe
         val dialog = dialog as BottomSheetDialog
         val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as View
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        touchEventListener
         binding.headerLayout.viewTreeObserver.addOnGlobalLayoutListener {
             val headerHeight = binding.headerLayout.height
             bottomSheetBehavior.peekHeight = headerHeight + dpToPx(requireActivity(), 20.0f).toInt()
@@ -154,6 +154,7 @@ class DetailBottomSheet(var touchEventListener: TouchEventListener?) : BottomShe
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
 }
+
 interface TouchEventListener {
     fun onTouchEvent(event: MotionEvent)
 }

@@ -17,8 +17,6 @@ import com.kakao.vectormap.camera.CameraAnimation
 import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.label.LabelOptions
-import com.kakao.vectormap.label.LabelStyle
-import com.kakao.vectormap.label.LabelStyles
 import com.opensw.sejongfood.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(), TouchEventListener {
@@ -26,6 +24,7 @@ class MainFragment : Fragment(), TouchEventListener {
     private lateinit var mapView: MapView
 
     private var oldLabel: Label? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,7 +99,6 @@ class MainFragment : Fragment(), TouchEventListener {
                         val layer = kakaoMap.labelManager?.layer
 
                         layer?.addLabel(options)
-
 
                         kakaoMap.moveCamera(
                             CameraUpdateFactory.newCenterPosition(label.position),
