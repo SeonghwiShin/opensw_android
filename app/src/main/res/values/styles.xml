@@ -1,0 +1,15 @@
+<resources>
+    <style name="AppBottomSheetDialogBorder20WhiteTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalBorder20WhiteStyle</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="AppModalBorder20WhiteStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_white_20</item>
+    </style>
+    <style name="CustomCheckBox" parent="Theme.AppCompat.Light">
+        <item name="android:button">@drawable/checkbox_wish</item>
+    </style>
+</resources>
