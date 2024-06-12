@@ -22,6 +22,7 @@ class WishAdapter(
                 textReviewCount.text = "(${data.reviewCount})"
                 val recommendMenus = data.review.map { it.recommendMenu }.distinct().joinToString(", ")
                 binding.textRecommend.text = recommendMenus
+                binding.textViewBasicInfo.text = data.address
                 binding.textDelete.setOnClickListener {
                     SharedPreferenceUtil(it.context).removePlaceData(data.index)
                     dataList.remove(data)

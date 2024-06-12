@@ -124,6 +124,8 @@ class AddFragment : Fragment() {
                     latitude = mLatitude,
                     longitude = mLongitude,
                     title = binding.editTitle.text.toString(),
+                    address = binding.editAddress.toString()
+
                 )
                 firebaseDatabaseHelper.addPlaceData(placeData)
             } else {
