@@ -19,7 +19,7 @@ class WishAdapter(
                 val averageRating = data.review.map { it.rating }?.average() ?: 0.0
                 binding.ratingbar.rating = averageRating.toFloat()
                 binding.textRatring.text = String.format("%.1f", averageRating)
-                textReviewCount.text = "(${data.reviewCount})"
+                binding.textReviewCount.text = "(${data.review?.size.toString()})"
                 val recommendMenus = data.review.map { it.recommendMenu }.distinct().joinToString(", ")
                 binding.textRecommend.text = recommendMenus
                 binding.textViewBasicInfo.text = data.address
